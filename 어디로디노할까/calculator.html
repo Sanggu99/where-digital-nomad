@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bali Cost Calculator | Digital Nomad Budget Tool</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Space Grotesk', sans-serif; }
+        .slider-thumb::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #137fec;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="sticky top-0 z-50 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16 items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">payments</span>
+<span class="text-xl font-bold tracking-tight">Nomad<span class="text-primary">Budget</span></span>
+</div>
+<nav class="hidden md:flex space-x-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Destinations</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Compare</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Community</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Guides</a>
+</nav>
+<div class="flex items-center gap-4">
+<button id="lang-toggle" onclick="toggleLang()" class="sm:flex items-center gap-2 px-4 py-2 text-sm font-bold border border-slate-200 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors">
+<span class="material-symbols-outlined text-lg">translate</span> <span id="lang-label">KO</span>
+                    </button>
+<button class="bg-primary text-white px-5 py-2 rounded-lg text-sm font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-all">
+                        Save Plan
+                    </button>
+</div>
+</div>
+</div>
+</header>
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<!-- Hero Section -->
+<div class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 mb-10">
+<div>
+<nav class="flex items-center gap-2 text-sm text-slate-500 mb-2">
+<a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Destinations</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Indonesia</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-slate-900 dark:text-slate-100 font-medium">Bali</span>
+</nav>
+<h1 class="text-4xl md:text-5xl font-bold mb-2">Bali Monthly Cost</h1>
+<p class="text-slate-500 dark:text-slate-400 max-w-xl">
+                    Plan your digital nomad lifestyle in Bali. Adjust the sliders below to get a personalized estimate of your monthly expenses.
+                </p>
+</div>
+<div class="bg-primary/10 border border-primary/20 p-6 rounded-xl w-full lg:w-auto min-w-[300px]">
+<p class="text-sm font-medium text-primary mb-1 uppercase tracking-wider">Estimated Monthly Total</p>
+<div class="flex items-baseline gap-2">
+<span id="grand-total" class="text-4xl font-bold text-slate-900 dark:text-white">$1,450</span>
+<span class="text-slate-500 text-sm font-normal">/ month</span>
+</div>
+<div class="mt-3 flex items-center gap-2 text-green-600 font-medium text-sm">
+<span class="material-symbols-outlined text-sm">trending_down</span>
+                    12% cheaper than Bangkok
+                </div>
+</div>
+</div>
+<!-- Main Content Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Category Cards Column -->
+<div class="lg:col-span-8 space-y-6">
+<!-- Accommodation Card -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">home</span>
+</div>
+<h3 class="text-xl font-bold">Rent &amp; Accommodation</h3>
+</div>
+<div class="space-y-8">
+<div>
+<label class="block text-sm font-medium mb-4">Accommodation Type</label>
+<div class="grid grid-cols-3 gap-3">
+<button class="p-3 text-sm border-2 border-primary bg-primary/5 text-primary rounded-lg font-bold">Shared Villa</button>
+<button class="p-3 text-sm border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 rounded-lg font-medium transition-colors">Private Studio</button>
+<button class="p-3 text-sm border-2 border-slate-100 dark:border-slate-800 hover:border-primary/50 rounded-lg font-medium transition-colors">Luxury Hotel</button>
+</div>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<label class="text-sm font-medium">Monthly Rent Budget</label>
+<span id="rent-val" class="text-primary font-bold">$650</span>
+</div>
+<input id="rent-slider" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer slider-thumb" max="3000" min="300" step="50" type="range" value="650"/>
+</div>
+</div>
+</div>
+<!-- Food & Drink Card -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">restaurant</span>
+</div>
+<h3 class="text-xl font-bold">Food &amp; Dining</h3>
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div class="space-y-6">
+<div>
+<div class="flex justify-between mb-2">
+<label class="text-sm font-medium"><span id="local-warung-label">Local Warungs (%)</span></label>
+<span id="local-val" class="text-slate-500 font-medium">70%</span>
+</div>
+<input id="local-slider" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer slider-thumb" type="range" min="0" max="100" value="70"/>
+</div>
+<div>
+<div class="flex justify-between mb-2">
+<label class="text-sm font-medium">Western Cafes (%)</label>
+<span id="western-val" class="text-slate-500 font-medium">30%</span>
+</div>
+<input id="western-slider" class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer slider-thumb" type="range" min="0" max="100" value="30"/>
+</div>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 p-4 rounded-lg">
+<div class="flex justify-between items-center mb-3">
+<span class="text-sm text-slate-500">Avg. meal price</span>
+<span id="avg-meal" class="font-bold">$4.50</span>
+</div>
+<div class="flex justify-between items-center mb-3">
+<span class="text-sm text-slate-500">Coffee/Drinks</span>
+<span class="font-bold">$120/mo</span>
+</div>
+<hr class="border-slate-200 dark:border-slate-700 my-2"/>
+<div class="flex justify-between items-center text-primary">
+<span class="text-sm font-bold">Monthly Food Total</span>
+<span id="food-total" class="text-lg font-bold">$420</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Transport & Workspace Grid -->
+<div class="grid md:grid-cols-2 gap-6">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">moped</span>
+</div>
+<h3 class="text-lg font-bold">Transportation</h3>
+</div>
+<div class="space-y-4">
+<div class="flex items-center justify-between p-3 border border-slate-100 dark:border-slate-800 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-slate-400">electric_scooter</span>
+<span class="text-sm font-medium">Scooter Rental</span>
+</div>
+<label class="flex items-center gap-2"><input type="checkbox" id="transport-scooter" class="form-checkbox w-4 h-4 text-primary rounded" checked><span class="text-sm font-bold">$80/mo</span></label>
+</div>
+<div class="flex items-center justify-between p-3 border border-primary/20 bg-primary/5 rounded-lg">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">directions_car</span>
+<span class="text-sm font-medium"><span id="taxi-label">Gojek/Grab</span></span>
+</div>
+<label class="flex items-center gap-2"><input type="checkbox" id="transport-gojek" class="form-checkbox w-4 h-4 text-primary rounded" checked><span class="text-sm font-bold">$120/mo</span></label>
+</div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 bg-primary/10 rounded-lg">
+<span class="material-symbols-outlined text-primary">laptop_mac</span>
+</div>
+<h3 class="text-lg font-bold">Workspace</h3>
+</div>
+<select id="workspace-select" class="w-full bg-slate-50 dark:bg-slate-800 border-none rounded-lg text-sm font-medium focus:ring-primary mb-4">
+<option value="180">Unlimited Coworking Pass ($180)</option>
+<option value="90">10-Day Pass ($90)</option>
+<option value="0">Home Office Only ($0)</option>
+<option value="150">Cafe Hopping ($150)</option>
+</select>
+<p class="text-xs text-slate-500 italic">Popular hubs: Outpost, Tropical Nomad, BWork.</p>
+</div>
+</div>
+</div>
+<!-- Summary & Comparison Sidebar -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Breakdown Summary -->
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm sticky top-24">
+<h3 class="text-lg font-bold mb-6">Expense Breakdown</h3>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 flex items-center gap-2"><div class="w-3 h-3 bg-primary rounded-full"></div> Rent</span>
+<span id="breakdown-rent" class="font-bold">$650 (45%)</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 flex items-center gap-2"><div class="w-3 h-3 bg-blue-300 rounded-full"></div> Food</span>
+<span id="breakdown-food" class="font-bold">$420 (29%)</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 flex items-center gap-2"><div class="w-3 h-3 bg-indigo-400 rounded-full"></div> Transport</span>
+<span id="breakdown-transport" class="font-bold">$200 (14%)</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-slate-500 flex items-center gap-2"><div class="w-3 h-3 bg-slate-400 rounded-full"></div> Others</span>
+<span id="breakdown-others" class="font-bold">$180 (12%)</span>
+</div>
+</div>
+<!-- Progress Bar for breakdown visual -->
+<div class="flex h-3 w-full rounded-full overflow-hidden mb-8">
+<div id="bar-rent" class="bg-primary w-[45%] transition-all duration-300"></div>
+<div id="bar-food" class="bg-blue-300 w-[29%] transition-all duration-300"></div>
+<div id="bar-transport" class="bg-indigo-400 w-[14%] transition-all duration-300"></div>
+<div id="bar-others" class="bg-slate-400 w-[12%] transition-all duration-300"></div>
+</div>
+<div class="space-y-3">
+<h4 class="text-sm font-bold uppercase tracking-widest text-slate-400">Compare with City</h4>
+<div class="relative">
+<select class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-4 py-2 text-sm font-medium focus:ring-primary appearance-none">
+<option>Chiang Mai, Thailand</option>
+<option>Lisbon, Portugal</option>
+<option>Medellin, Colombia</option>
+<option>Tbilisi, Georgia</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">expand_more</span>
+</div>
+<div class="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 mt-4">
+<div class="flex justify-between items-center text-sm mb-2">
+<span>Chiang Mai Estimate</span>
+<span class="font-bold">$1,120</span>
+</div>
+<div class="text-xs text-green-600 font-bold">
+                                Bali is ~23% more expensive
+                            </div>
+</div>
+</div>
+<button class="w-full mt-6 py-3 bg-primary text-white rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-xl">share</span>
+                        Share this Budget
+                    </button>
+</div>
+</div>
+</div>
+<!-- Activities Section -->
+<div class="mt-12">
+<h3 class="text-2xl font-bold mb-6">Lifestyle &amp; Activities</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Activity Card 1 -->
+<div class="group relative overflow-hidden rounded-xl h-48 bg-slate-200">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Surfing in the ocean at Bali sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRD1df7KFHgqODnEfUuFw3FltCEQN7VLeX2jQWBQqkd_pcBZgdKy6ILDYEdU_FciG0sUgRtS8IHyfNswNSuFcUK4b9HR-eZcUi1Lsa22VFgIOfIHSvAyJvEN6BDJHGGMtEQLkbSzDSnFXEVM1kEbH8dEaN9Dsx_4u0PGUYA2kFrW7Q_3hQ-M7imhhT9rx0RFBL5I7fFtImuh15brTxJ9JTc5vhROW7RDYD_qENCsF0nL8NOa-JRfKfkOVLqt664OiI6FSCWpme_i_M"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
+<div class="flex justify-between items-center">
+<div>
+<h4 class="text-white font-bold">Surfing</h4>
+<p class="text-slate-300 text-xs">Rental + Lessons</p>
+</div>
+<span class="text-white font-bold">$150</span>
+</div>
+</div>
+</div>
+<!-- Activity Card 2 -->
+<div class="group relative overflow-hidden rounded-xl h-48 bg-slate-200">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Peaceful yoga studio in a tropical forest" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlCBfvSrfRJJidlA9Cd_Hbqwb2hhLU6NzWaZu6Nk9Llat9siaEsh95JcxqFE87-qwxAOcmWASA_C-lBjj9yY5nqvUIFlUDpV0YKihxAUHvwV-o4i8O1IH7iEqL8FFys51MbhwW51FQSdrN6pp_WwQfesrq5JhFZ7tECd4GnDuIwL_D8_OCCBp2LpJ1LKG5h8tqPXVjZmc-jm6sjotiLC9YBMinDepRTrxhVNtm0yQavAIt-aZ8B5PCsrQq6rarmw3UqnVV61r5bEJi"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
+<div class="flex justify-between items-center">
+<div>
+<h4 class="text-white font-bold">Yoga Pass</h4>
+<p class="text-slate-300 text-xs">Unlimited Monthly</p>
+</div>
+<span class="text-white font-bold">$120</span>
+</div>
+</div>
+</div>
+<!-- Activity Card 3 -->
+<div class="group relative overflow-hidden rounded-xl h-48 bg-slate-200">
+<img class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Cocktails at a beach club pool" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCs5_2WLQTXAE_EIHnKKEOaeKearDDzjfMIA5X3MtSTt5B-6ik2dv3Lc5b_5H13z_Dlp4jZZPSQSCKlfEqWVhRCeRLWGsrDp-kUMj3K8bWJH4uofAmSvkWi9XH9xK2AOF1eR8uMi7NcpDXLv4S4EAuHtb6z7Fic8Pc_IaTQJAKZOeBBrX-VsynkZrGRhs6IhOEAaaxxRfqhbcB9uhPgR6Fp6bzVpYShp6qjrrLL0P2MEzHCBQ44rv8tGIex9RWXo3dYPA_woilX00C2"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-4">
+<div class="flex justify-between items-center">
+<div>
+<h4 class="text-white font-bold">Nightlife</h4>
+<p class="text-slate-300 text-xs">Beach Clubs &amp; Bars</p>
+</div>
+<span class="text-white font-bold">$250</span>
+</div>
+</div>
+</div>
+<!-- Activity Card 4 -->
+<div class="border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-xl h-48 flex flex-col items-center justify-center gap-3 hover:border-primary transition-colors cursor-pointer">
+<span class="material-symbols-outlined text-slate-300 text-4xl">add_circle</span>
+<span class="text-sm font-bold text-slate-400">Add Activity</span>
+</div>
+</div>
+</div>
+<!-- Location Map Component -->
+<div class="mt-16 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-xl bg-white dark:bg-slate-900">
+<div class="grid md:grid-cols-3">
+<div class="md:col-span-1 p-8">
+<h3 class="text-2xl font-bold mb-4">Bali Guide</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">wifi</span>
+<div>
+<p class="font-bold text-sm">Internet Speed</p>
+<p class="text-sm text-slate-500">Avg. 45Mbps fiber</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">sunny</span>
+<div>
+<p class="font-bold text-sm">Best Time to Visit</p>
+<p class="text-sm text-slate-500">May - September</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1">verified_user</span>
+<div>
+<p class="font-bold text-sm">Safety Rating</p>
+<p class="text-sm text-slate-500">High (Expat friendly)</p>
+</div>
+</div>
+</div>
+<button class="mt-8 text-primary font-bold flex items-center gap-2 hover:underline">
+                        Read full destination guide <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="md:col-span-2 relative min-h-[300px] bg-slate-100">
+<img class="absolute inset-0 w-full h-full object-cover" data-alt="Aerial map view of Bali coast" data-location="Bali" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUOdhecHu3XvmpqtSpqv6l93BJKzekT79dHnhvAH1wJF57T4zMjtp-Vdr-8IzIE-bkR5xHQ5ZQqsuHiYpfA8GQClkWB4Xd8sK-anWzBDBlWfoZCbXGz5g_oYAtpbmPsFAhWCuiuK4KP6gPZ1GGBIfUeIdiNd1ykcBYSbPdPExoEsB-Hgtbm-Zj6_QjCEZeybo7oCI2igJ9zQRbqKhKZOwuIzXifovbauaE1lxLlFeVjDgJlUPrLw6idnHuRN3CkMCiTN-9fQjZvZwL"/>
+<div class="absolute inset-0 bg-primary/5"></div>
+<!-- Map pins simulation -->
+<div class="absolute top-1/4 left-1/3 w-4 h-4 bg-primary rounded-full border-2 border-white animate-pulse"></div>
+<div class="absolute top-1/2 left-2/3 w-4 h-4 bg-primary rounded-full border-2 border-white animate-pulse"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-900 py-12 mt-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="col-span-2 md:col-span-1">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-primary">payments</span>
+<span class="text-lg font-bold">NomadBudget</span>
+</div>
+<p class="text-sm text-slate-500 leading-relaxed">
+                        Helping digital nomads plan their next adventure with real-time cost of living data and budgeting tools.
+                    </p>
+</div>
+<div>
+<h5 class="font-bold text-sm mb-4 uppercase tracking-widest">Platform</h5>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Calculators</a></li>
+<li><a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Comparison</a></li>
+<li><a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Nomad List</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-sm mb-4 uppercase tracking-widest">Resources</h5>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Visa Guide</a></li>
+<li><a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Travel Insurance</a></li>
+<li><a class="hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Remote Jobs</a></li>
+</ul>
+</div>
+<div>
+<h5 class="font-bold text-sm mb-4 uppercase tracking-widest">Connect</h5>
+<div class="flex gap-4">
+<a class="text-slate-400 hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))"><span class="material-symbols-outlined">public</span></a>
+<a class="text-slate-400 hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))"><span class="material-symbols-outlined">mail</span></a>
+<a class="text-slate-400 hover:text-primary" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))"><span class="material-symbols-outlined">groups</span></a>
+</div>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-900 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-xs text-slate-400">© 2024 NomadBudget. Data updated weekly.</p>
+<div class="flex gap-6 text-xs text-slate-400">
+<a class="hover:text-slate-600" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Privacy Policy</a>
+<a class="hover:text-slate-600" href="javascript:void(alert('기능이 곧 추가됩니다. (Coming soon)'))">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const rentSlider = document.getElementById('rent-slider');
+    const rentVal = document.getElementById('rent-val');
+    const localSlider = document.getElementById('local-slider');
+    const localVal = document.getElementById('local-val');
+    const westernSlider = document.getElementById('western-slider');
+    const westernVal = document.getElementById('western-val');
+    const avgMeal = document.getElementById('avg-meal');
+    const foodTotal = document.getElementById('food-total');
+    
+    const transportScooter = document.getElementById('transport-scooter');
+    const transportGojek = document.getElementById('transport-gojek');
+    const workspaceSelect = document.getElementById('workspace-select');
+    
+    const grandTotal = document.getElementById('grand-total');
+    const bdRent = document.getElementById('breakdown-rent');
+    const bdFood = document.getElementById('breakdown-food');
+    const bdTransport = document.getElementById('breakdown-transport');
+    const bdOthers = document.getElementById('breakdown-others');
+    
+    const barRent = document.getElementById('bar-rent');
+    const barFood = document.getElementById('bar-food');
+    const barTransport = document.getElementById('bar-transport');
+    const barOthers = document.getElementById('bar-others');
+
+    function calculate() {
+        if(!rentSlider) return;
+        const rent = parseInt(rentSlider.value);
+        rentVal.textContent = '$' + rent;
+        
+        let localPct = parseInt(localSlider.value);
+        let westernPct = parseInt(westernSlider.value);
+        
+        const avg = (localPct / 100) * 2.5 + (westernPct / 100) * 8;
+        avgMeal.textContent = '$' + avg.toFixed(2);
+        
+        const food = Math.round(avg * 3 * 30 + 120);
+        foodTotal.textContent = '$' + food;
+        
+        let transport = 0;
+        if(transportScooter.checked) transport += 80;
+        if(transportGojek.checked) transport += 120;
+        
+        let others = parseInt(workspaceSelect.value);
+        if (isNaN(others)) others = 180;
+        
+        const total = rent + food + transport + others;
+        grandTotal.textContent = '$' + total.toLocaleString();
+        
+        const pRent = Math.round((rent/total)*100) || 0;
+        const pFood = Math.round((food/total)*100) || 0;
+        const pTransport = Math.round((transport/total)*100) || 0;
+        const pOthers = Math.round((others/total)*100) || 0;
+        
+        bdRent.textContent = '$' + rent + ' (' + pRent + '%)';
+        bdFood.textContent = '$' + food + ' (' + pFood + '%)';
+        bdTransport.textContent = '$' + transport + ' (' + pTransport + '%)';
+        bdOthers.textContent = '$' + others + ' (' + pOthers + '%)';
+        
+        barRent.style.width = pRent + '%';
+        barFood.style.width = pFood + '%';
+        barTransport.style.width = pTransport + '%';
+        barOthers.style.width = pOthers + '%';
+    }
+
+    // Two-way binding for food sliders
+    localSlider.addEventListener('input', (e) => {
+        westernSlider.value = 100 - e.target.value;
+        localVal.textContent = e.target.value + '%';
+        westernVal.textContent = westernSlider.value + '%';
+        calculate();
+    });
+    
+    westernSlider.addEventListener('input', (e) => {
+        localSlider.value = 100 - e.target.value;
+        westernVal.textContent = e.target.value + '%';
+        localVal.textContent = localSlider.value + '%';
+        calculate();
+    });
+
+    const inputs = [rentSlider, transportScooter, transportGojek, workspaceSelect];
+    inputs.forEach(el => {
+        if(el) el.addEventListener('input', calculate);
+    });
+    
+    calculate();
+});
+</script>
+
+<script>
+const dict = {
+    "Explore": "탐색", "Community": "커뮤니티", "Pricing": "비용 정보", "Sign In": "로그인",
+    "Discover the world's best cities for digital nomads. We rank places based on cost, internet speed, safety, and quality of life.": "디지털 노마드를 위한 최고의 도시를 발견하세요. 물가, 인터넷 속도, 안전 및 삶의 질을 기반으로 순위를 확인합니다.",
+    "Search": "검색", "Popular:": "인기 도시:", "Gigabit Internet": "기가비트 인터넷", "Available in 450+ cities": "450여 개 도시에서 이용 가능",
+    "Cities Indexed": "등록된 도시 수", "Nomad Reviews": "리뷰(건)", "Avg. Wi-Fi Speed": "평균 Wi-Fi 속도", "Avg. Living Cost": "평균 생활비",
+    "Featured Destinations": "추천 목적지", "Hand-picked locations with the best balance of cost and lifestyle.": "비용과 라이프스타일 밸런스가 뛰어난 엄선된 도시별 정보.",
+    "View all cities": "모든 도시 보기", "Lisbon, Portugal": "포르투갈, 리스본", "Coastal City • Tech Hub": "해안 도시 • 테크 허브",
+    "per month": "월 기준", "High": "높음", "Bali, Indonesia": "인도네시아, 발리", "Island • Coworking Paradise": "휴양지 • 코워킹 천국",
+    "Chiang Mai, Thailand": "태국, 치앙마이", "Mountainous • Low Cost": "산악 지대 • 저렴한 물가", "Very Safe": "매우 안전함",
+    "Ready to find your next home?": "다음 도시를 찾을 준비가 되셨나요?", "Join 50,000+ digital nomads and get access to exclusive city reports, community forums, and remote job listings.": "5만 명 이상의 노마드 커뮤니티에 참여하고 리포트와 채용 정보를 확인하세요.",
+    "Join the Community": "커뮤니티 가입", "Browse All Cities": "모든 도시 살펴보기", "Product": "서비스", "Nomad Score": "노마드 스코어",
+    "API": "API", "Resources": "리소스", "Blog": "블로그", "Remote Jobs": "원격 채용", "Guides": "도시 가이드", "Company": "회사",
+    "About": "소개", "Careers": "채용 정보", "Privacy": "개인정보 보호", "Terms": "이용 약관",
+    "NomadBudget": "노마드예산", "Destinations": "목적지", "Compare": "비교", "Save Plan": "계획 저장", "Bali Monthly Cost": "발리 예상 생활비",
+    "Plan your digital nomad lifestyle in Bali. Adjust the sliders below to get a personalized estimate of your monthly expenses.": "자신의 라이프스타일에 맞게 슬라이더를 조정하여 예상 월별 지출액을 확인하세요.",
+    "Indonesia": "인도네시아", "Estimated Monthly Total": "예상 월별 총 예산", "/ month": "/ 월", "Rent & Accommodation": "임대 및 숙박",
+    "Accommodation Type": "숙소 유형", "Shared Villa": "공유 빌라/게스트하우스", "Private Studio": "프라이빗 스튜디오 (원룸)", "Luxury Hotel": "럭셔리 호텔",
+    "Monthly Rent Budget": "월간 렌트 예산", "Food & Dining": "식사 및 다이닝", 
+    "Avg. meal price": "평균 식비 (1끼)", "Coffee/Drinks": "커피/음료비", "Monthly Food Total": "월 식사 비용",
+    "Transportation": "교통 수단", "Scooter Rental": "스쿠터 렌탈/대여", "Workspace": "업무 공간",
+    "Unlimited Coworking Pass ($180)": "무제한 코워킹 패스 ($180)", "10-Day Pass ($90)": "10일권 패스 ($90)", "Home Office Only ($0)": "재택 근무 전용 ($0)", "Cafe Hopping ($150)": "카페 호핑 ($150)", 
+    "Popular hubs: Outpost, Tropical Nomad, BWork.": "인기 코워킹 스페이스: 아웃포스트, 뷰워크 등.", "Expense Breakdown": "예산 상세 내역", " Rent": " 숙소",
+    " Food": " 식비", " Transport": " 교통", " Others": " 기타", "Compare with City": "다른 도시와 비교해보기", "Chiang Mai Estimate": "타 도시 예상 비용",
+    "Share this Budget": "예산 정보 공유하기", "Lifestyle & Activities": "라이프스타일 및 엑티비티",
+    "Surfing": "서핑 등 액티비티", "Rental + Lessons": "장비 대여 + 강습", "Yoga Pass": "요가/피트니스 통행권", "Unlimited Monthly": "한 달 무제한 이용권",
+    "Nightlife": "나이트라이프/클럽", "Beach Clubs & Bars": "비치클럽 & 바", "Add Activity": "직접 추가하기", "Bali Guide": "도시 핵심 가이드",
+    "Internet Speed": "평균 와이파이 속도", "Avg. 45Mbps fiber": "약 45Mbps에서 100Mbps", "Best Time to Visit": "방문 권장 시기", "May - September": "건기 시즌 분기",
+    "Safety Rating": "안전 지수", "High (Expat friendly)": "안전 (외국인 커뮤니티 활성화)", "Read full destination guide ": "더 자세한 정보 알아보기(링크) ",
+    "Helping digital nomads plan their next adventure with real-time cost of living data and budgeting tools.": "정확하고 리얼한 물가 비용 도구를 활용해 다음 여행의 걱정 없이 떠나세요.",
+    "Platform": "플랫폼", "Calculators": "비용 계산기", "Comparison": "생활비 비교", "Nomad List": "노마드 랭킹", "Visa Guide": "비자 및 체류 정보",
+    "Travel Insurance": "유학생/여행자 보험", "Connect": "소통 채널", "Privacy Policy": "개인정보 보호", "Terms of Service": "이용 약관",
+    "Lisbon Monthly Cost": "리스본 예상 생활비", "Chiang Mai Monthly Cost": "치앙마이 예상 생활비",
+    "Portugal": "포르투갈", "Thailand": "태국"
+};
+
+function applyTranslations(node) {
+    if (node.nodeType === 3) {
+        let text = node.nodeValue.trim();
+        // Exact match
+        if (dict[text]) {
+            node.nodeValue = node.nodeValue.replace(text, dict[text]);
+        } else {
+            // Check substrings for multi-part words
+            for(let key in dict) {
+                if (text === key) {
+                    node.nodeValue = node.nodeValue.replace(key, dict[key]);
+                }
+            }
+            if (text.includes("Work from ")) node.nodeValue = node.nodeValue.replace("Work from ", "자유롭게 거주하며 ");
+            if (text.includes("anywhere.")) node.nodeValue = node.nodeValue.replace("anywhere.", "어디서든 일하세요.");
+        }
+    } else if (node.nodeType === 1) {
+        if (node.tagName === 'INPUT' && node.placeholder && dict[node.placeholder]) {
+            node.placeholder = dict[node.placeholder];
+        }
+        for (let child of node.childNodes) {
+            applyTranslations(child);
+        }
+    }
+}
+
+function initLang() {
+    const isKo = localStorage.getItem('lang') === 'ko';
+    document.documentElement.lang = isKo ? 'ko' : 'en';
+    const l1 = document.getElementById('lang-label');
+    if(l1) l1.textContent = isKo ? 'EN' : 'KO';
+    
+    // special handling for multiple nav
+    const ls = document.querySelectorAll('#lang-label');
+    ls.forEach(l => l.textContent = isKo ? 'EN' : 'KO');
+
+    if(isKo) {
+        applyTranslations(document.body);
+    }
+}
+
+window.toggleLang = function() {
+    const cur = localStorage.getItem('lang');
+    localStorage.setItem('lang', cur === 'ko' ? 'en' : 'ko');
+    location.reload();
+}
+
+// Call on ready not immediate to avoid parse blocking and missing elements
+window.addEventListener('DOMContentLoaded', initLang);
+</script>
+
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const city = params.get('city') || 'bali';
+    
+    const cityTitle = document.querySelector('h1');
+    const cityGuideTitle = document.querySelector('h3.text-2xl.font-bold.mb-4');
+    const bCity = document.querySelectorAll('nav span.text-slate-900.dark\\:text-slate-100')[0] || document.querySelector('nav span'); // fallback
+    const bCountry = document.querySelectorAll('nav a.hover\\:text-primary')[1];
+    const heroImage = document.querySelector('img[data-location]');
+    const rentSlider = document.getElementById('rent-slider');
+    
+    let isKo = localStorage.getItem('lang') === 'ko';
+
+    if (city === 'lisbon') {
+        if(cityTitle) cityTitle.textContent = isKo ? "리스본 예상 생활비" : "Lisbon Monthly Cost";
+        if(cityGuideTitle) cityGuideTitle.textContent = isKo ? "리스본 가이드" : "Lisbon Guide";
+        if(bCity) bCity.textContent = isKo ? "리스본" : "Lisbon";
+        if(bCountry) bCountry.textContent = isKo ? "포르투갈" : "Portugal";
+        if(heroImage) heroImage.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuDQ4LhsVzOjc6zvAHNjGBjWkeSsEWHSHYcngRHORW1plQCuXe91FPt-oUzT8RtznR38j6sb4MgBPa4HigrcCJx_sn3TiVAFuZVXQZ01cFwqIlhFup5e_eDkeNIaRnyYyhd1IU82Q67mAQA7xCBJd_Izh1mbHuC9AgcQQ7C6I7rfEiVqB3IpSTbxVCuwZlWyHuG087U7pMoWitF9Zn95IWaWWQoT9nYx2F9h6gYqaaye_la9sKxK3LQrMGSV_1qZBFZDVyKji6pFwVD_";
+        if(rentSlider) { rentSlider.value = 1400; rentSlider.dispatchEvent(new Event('input')); }
+        
+        let labelw = document.getElementById('local-warung-label');
+        if(labelw) labelw.textContent = isKo ? "로컬 타스카 비율(%)" : "Local Tascas (%)";
+        
+        let tx = document.getElementById('taxi-label');
+        if(tx) tx.textContent = "Uber/Bolt";
+    } 
+    else if (city === 'chiangmai') {
+        if(cityTitle) cityTitle.textContent = isKo ? "치앙마이 예상 생활비" : "Chiang Mai Monthly Cost";
+        if(cityGuideTitle) cityGuideTitle.textContent = isKo ? "치앙마이 안내" : "Chiang Mai Guide";
+        if(bCity) bCity.textContent = isKo ? "치앙마이" : "Chiang Mai";
+        if(bCountry) bCountry.textContent = isKo ? "태국" : "Thailand";
+        if(heroImage) heroImage.src = "https://lh3.googleusercontent.com/aida-public/AB6AXuD6Cgu-xRJnBrxeA0Yt4o1SS4MbdFCAMolnl_WcrVHyozxlYrG022WTRh2GBIJVBB_tSlGY9LNeGuqoSejjilNTK9FNtgZExxhrOoZ0KUBur0KdFjJ_gB3IRAgG3a_fPIssv00ElTtlEmYeEUhOssODzORj-wZF5JjXIvkMxFqPiqF6zsZhLi1pE4PdSxMf7qWE4plxXubCOXhRI12nJE1bMNJh18FKEIi_P7uNr39Sw0KtfKI-L5grqQpAn7GtLmCZkrdjADrmgwEN";
+        if(rentSlider) { rentSlider.value = 450; rentSlider.dispatchEvent(new Event('input')); }
+        
+        let labelw = document.getElementById('local-warung-label');
+        if(labelw) labelw.textContent = isKo ? "로컬 식당 비율(%)": "Local Street Food (%)";
+        let tx = document.getElementById('taxi-label');
+        if(tx) tx.textContent = "Grab/TukTuk";
+    } else {
+         if(cityTitle && isKo) cityTitle.textContent = "발리 예상 생활비";
+         if(bCity && isKo) bCity.textContent = "발리";
+         if(bCountry && isKo) bCountry.textContent = "인도네시아";
+    }
+});
+</script>
+
+</body>
+</html>

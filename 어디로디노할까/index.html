@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NomadCity | Find Your Next Destination</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 antialiased">
+<!-- Navigation Bar -->
+<nav class="sticky top-0 z-50 w-full border-b border-slate-200 dark:border-slate-800 bg-white/80 dark:bg-background-dark/80 backdrop-blur-md">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-16">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-3xl">map</span>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">NomadCity</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Explore</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Community</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Pricing</a>
+<button class="bg-primary text-white px-5 py-2 rounded-lg text-sm font-bold hover:bg-primary/90 transition-all">
+                        Sign In
+                    </button>
+<button id="lang-toggle" onclick="toggleLang()" class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm ml-2 md:ml-4"><span class="material-symbols-outlined text-sm">translate</span><span id="lang-label">KO</span></button>
+</div>
+<div class="flex items-center gap-2 md:hidden">
+<button id="lang-toggle" onclick="toggleLang()" class="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all shadow-sm ml-2 md:ml-4"><span class="material-symbols-outlined text-sm">translate</span><span id="lang-label">KO</span></button><div class="md:hidden">
+<span class="material-symbols-outlined cursor-pointer">menu</span>
+</div>
+</div>
+</div>
+</nav>
+<!-- Hero Section -->
+<main>
+<section class="relative py-12 lg:py-20 overflow-hidden">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid lg:grid-cols-2 gap-12 items-center">
+<div class="flex flex-col gap-8">
+<div class="space-y-4">
+<h1 class="text-5xl lg:text-7xl font-bold leading-[1.1] tracking-tight text-slate-900 dark:text-white">
+                                Work from <span class="text-primary">anywhere.</span><br/>Live everywhere.
+                            </h1>
+<p class="text-lg text-slate-600 dark:text-slate-400 max-w-xl">
+                                Discover the world's best cities for digital nomads. We rank places based on cost, internet speed, safety, and quality of life.
+                            </p>
+</div>
+<!-- Search Box -->
+<div class="w-full max-w-xl">
+<div class="flex p-2 bg-white dark:bg-slate-800 rounded-xl shadow-xl shadow-primary/5 border border-slate-200 dark:border-slate-700">
+<div class="flex flex-1 items-center px-4 gap-3">
+<span class="material-symbols-outlined text-slate-400">search</span>
+<input class="w-full border-none focus:ring-0 bg-transparent text-slate-900 dark:text-white placeholder:text-slate-400" placeholder="Search by city, country, or vibe..." type="text"/>
+</div>
+<button class="bg-primary text-white px-8 py-3 rounded-lg font-bold hover:bg-primary/90 transition-all">
+                                    Search
+                                </button>
+</div>
+</div>
+<!-- Popular Tags -->
+<div class="flex flex-wrap gap-3 items-center">
+<span class="text-sm font-semibold text-slate-500 uppercase tracking-wider">Popular:</span>
+<a class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-200/50 dark:bg-slate-800 hover:bg-primary/10 hover:text-primary transition-all text-sm font-medium" href="calculator.html?city=bali">
+<span class="material-symbols-outlined text-sm">location_on</span> Bali
+                            </a>
+<a class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-200/50 dark:bg-slate-800 hover:bg-primary/10 hover:text-primary transition-all text-sm font-medium" href="calculator.html?city=chiangmai">
+<span class="material-symbols-outlined text-sm">location_on</span> Chiang Mai
+</a>
+                            </a>
+<a class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-200/50 dark:bg-slate-800 hover:bg-primary/10 hover:text-primary transition-all text-sm font-medium" href="calculator.html?city=lisbon">
+<span class="material-symbols-outlined text-sm">location_on</span> Lisbon
+</a>
+<a class="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-slate-200/50 dark:bg-slate-800 hover:bg-primary/10 hover:text-primary transition-all text-sm font-medium" href="calculator.html?city=medellin">
+<span class="material-symbols-outlined text-sm">location_on</span> Medellín
+</a>
+</div>
+</div>
+<div class="relative hidden lg:block">
+<div class="aspect-square rounded-3xl overflow-hidden shadow-2xl rotate-3 scale-95 border-8 border-white dark:border-slate-800">
+<img class="w-full h-full object-cover" data-alt="Modern digital nomad working in a sunlit cafe with mountain views" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqx0YCjN4NY428y5qmFgA2o2jW329e80WE0cX8Rf-eKCOkUhDmKYcGRxqdQCrIwy_Q0BIBAM0czaypPoKkwklJLeah7Pa0fw5A9rZ92HCNWHJ3SIOsy49WHugj1pj0aT5zwKnvwUtrtNm508-3pUPA68J6RsCkh9CqLHMce11fDu_ZXfOnsccLBj1I06LYWGlD0rCzETGgINJYg2k3V3FkeT5NBJkJwQ6aJunor3YqrzksgSAIP-Vypzsoo9b9LF878zFjDUQLHBtg"/>
+</div>
+<div class="absolute -bottom-6 -left-12 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl flex items-center gap-4 -rotate-3 border border-slate-100 dark:border-slate-700">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">wifi</span>
+</div>
+<div>
+<p class="text-sm font-bold text-slate-900 dark:text-white">Gigabit Internet</p>
+<p class="text-xs text-slate-500">Available in 450+ cities</p>
+</div>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- Stats Section -->
+<section class="py-12 bg-white dark:bg-slate-900 border-y border-slate-100 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+<div>
+<p class="text-3xl font-bold text-primary">1,200+</p>
+<p class="text-sm text-slate-500 font-medium">Cities Indexed</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-primary">85k+</p>
+<p class="text-sm text-slate-500 font-medium">Nomad Reviews</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-primary">240mbps</p>
+<p class="text-sm text-slate-500 font-medium">Avg. Wi-Fi Speed</p>
+</div>
+<div>
+<p class="text-3xl font-bold text-primary">$1.5k</p>
+<p class="text-sm text-slate-500 font-medium">Avg. Living Cost</p>
+</a>
+</div>
+</div>
+</section>
+<!-- Featured Destinations -->
+<section class="py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col md:flex-row justify-between items-end mb-12 gap-6">
+<div class="space-y-2">
+<h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Featured Destinations</h2>
+<p class="text-slate-500">Hand-picked locations with the best balance of cost and lifestyle.</p>
+</div>
+<button class="flex items-center gap-2 text-primary font-bold hover:gap-3 transition-all">
+                        View all cities <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- City Card 1 -->
+<a href="calculator.html?city=bali" class="block group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Beautiful aerial view of Lisbon historic center and river" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ4LhsVzOjc6zvAHNjGBjWkeSsEWHSHYcngRHORW1plQCuXe91FPt-oUzT8RtznR38j6sb4MgBPa4HigrcCJx_sn3TiVAFuZVXQZ01cFwqIlhFup5e_eDkeNIaRnyYyhd1IU82Q67mAQA7xCBJd_Izh1mbHuC9AgcQQ7C6I7rfEiVqB3IpSTbxVCuwZlWyHuG087U7pMoWitF9Zn95IWaWWQoT9nYx2F9h6gYqaaye_la9sKxK3LQrMGSV_1qZBFZDVyKji6pFwVD_"/>
+<div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">star</span> 4.8
+                            </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Lisbon, Portugal</h3>
+<p class="text-slate-500 text-sm">Coastal City • Tech Hub</p>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-primary">$2,400</p>
+<p class="text-xs text-slate-400 uppercase font-bold">per month</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 border-t border-slate-100 dark:border-slate-700 pt-4">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-slate-400">thermostat</span>
+<span class="text-xs font-medium">22°C</span>
+</div>
+<div class="flex flex-col items-center gap-1 border-x border-slate-100 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400">wifi</span>
+<span class="text-xs font-medium">85 Mbps</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-slate-400">shield_with_heart</span>
+<span class="text-xs font-medium">High</span>
+</div>
+</div>
+</div>
+</a>
+<!-- City Card 2 -->
+<a href="calculator.html?city=bali" class="block group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Tropical beach and palm trees in Canggu Bali" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBb0FR68GGH_dz6G2PAbU8gr7DzwAq0OP3a6YOYZCRVlD2wN6BBs_E1RYG9ea_gQq1EOl87IpNBsjX3BEryYgVSt3dAXTFO8Xy5S8lgQWqX6kOisDzvvuDJ2_MKe9N7_alGIOliRto_QY59Ik9QhCHjbyZiYUjKMk18qVllHi5mjDxzgrIikrAb68Q-h_oRH9_qLYkXfHBZgRk-7iVIAnB8Ammi6ATRSNU_Gy87J54_CDA2BaI8oHYRXM8I24XFPA9cL__NZndVHptm"/>
+<div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">star</span> 4.5
+                            </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Bali, Indonesia</h3>
+<p class="text-slate-500 text-sm">Island • Coworking Paradise</p>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-primary">$1,200</p>
+<p class="text-xs text-slate-400 uppercase font-bold">per month</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 border-t border-slate-100 dark:border-slate-700 pt-4">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-slate-400">thermostat</span>
+<span class="text-xs font-medium">28°C</span>
+</div>
+<div class="flex flex-col items-center gap-1 border-x border-slate-100 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400">wifi</span>
+<span class="text-xs font-medium">45 Mbps</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-slate-400">restaurant</span>
+<span class="text-xs font-medium">Top Tier</span>
+</div>
+</div>
+</div>
+</a>
+<!-- City Card 3 -->
+<a href="calculator.html?city=bali" class="block group bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-700">
+<div class="relative h-64 overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Chiang Mai old city temple at sunset" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6Cgu-xRJnBrxeA0Yt4o1SS4MbdFCAMolnl_WcrVHyozxlYrG022WTRh2GBIJVBB_tSlGY9LNeGuqoSejjilNTK9FNtgZExxhrOoZ0KUBur0KdFjJ_gB3IRAgG3a_fPIssv00ElTtlEmYeEUhOssODzORj-wZF5JjXIvkMxFqPiqF6zsZhLi1pE4PdSxMf7qWE4plxXubCOXhRI12nJE1bMNJh18FKEIi_P7uNr39Sw0KtfKI-L5grqQpAn7GtLmCZkrdjADrmgwEN"/>
+<div class="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-lg text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">star</span> 4.6
+                            </div>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-xl font-bold text-slate-900 dark:text-white">Chiang Mai, Thailand</h3>
+<p class="text-slate-500 text-sm">Mountainous • Low Cost</p>
+</div>
+<div class="text-right">
+<p class="text-lg font-bold text-primary">$1,100</p>
+<p class="text-xs text-slate-400 uppercase font-bold">per month</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-2 border-t border-slate-100 dark:border-slate-700 pt-4">
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-slate-400">thermostat</span>
+<span class="text-xs font-medium">25°C</span>
+</div>
+<div class="flex flex-col items-center gap-1 border-x border-slate-100 dark:border-slate-700">
+<span class="material-symbols-outlined text-slate-400">wifi</span>
+<span class="text-xs font-medium">120 Mbps</span>
+</div>
+<div class="flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-slate-400">account_balance</span>
+<span class="text-xs font-medium">Very Safe</span>
+</div>
+</div>
+</div>
+</a>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-20 px-4">
+<div class="max-w-5xl mx-auto bg-primary rounded-3xl p-8 md:p-16 text-center text-white relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32"></div>
+<div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -ml-24 -mb-24"></div>
+<div class="relative z-10 space-y-8">
+<h2 class="text-3xl md:text-5xl font-bold leading-tight">Ready to find your next home?</h2>
+<p class="text-lg md:text-xl text-white/80 max-w-2xl mx-auto">
+                        Join 50,000+ digital nomads and get access to exclusive city reports, community forums, and remote job listings.
+                    </p>
+<div class="flex flex-col sm:flex-row justify-center gap-4">
+<button class="bg-white text-primary px-8 py-4 rounded-xl font-bold text-lg hover:bg-slate-50 transition-all">
+                            Join the Community
+                        </button>
+<button class="bg-primary-dark/20 border-2 border-white/30 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-bold text-lg hover:bg-white/10 transition-all">
+                            Browse All Cities
+                        </button>
+</a>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-white dark:bg-slate-900 py-12 border-t border-slate-100 dark:border-slate-800">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8">
+<div class="col-span-2">
+<div class="flex items-center gap-2 mb-6">
+<span class="material-symbols-outlined text-primary text-3xl">map</span>
+<span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">NomadCity</span>
+</div>
+<p class="text-slate-500 text-sm max-w-xs mb-6">
+                        Helping remote workers discover the best places to live, work, and explore across the globe since 2020.
+                    </p>
+<div class="flex gap-4">
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">
+<span class="material-symbols-outlined">public</span>
+</a>
+<a class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">
+<span class="material-symbols-outlined">alternate_email</span>
+</a>
+</div>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-4">Product</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Explore</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Nomad Score</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Pricing</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">API</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-4">Resources</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Blog</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Remote Jobs</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Guides</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Community</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-bold text-slate-900 dark:text-white mb-4">Company</h4>
+<ul class="space-y-2 text-sm text-slate-500">
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">About</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Careers</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Privacy</a></li>
+<li><a class="hover:text-primary transition-colors" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">Terms</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+<p class="text-sm text-slate-400">© 2024 NomadCity Inc. All rights reserved.</p>
+<div class="flex gap-6 text-sm text-slate-400">
+<a class="hover:text-primary" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">English</a>
+<a class="hover:text-primary" href="javascript:void(alert('준비 중인 기능입니다. (Coming soon)'))">USD ($)</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+const dict = {
+    "Explore": "탐색", "Community": "커뮤니티", "Pricing": "비용 정보", "Sign In": "로그인",
+    "Discover the world's best cities for digital nomads. We rank places based on cost, internet speed, safety, and quality of life.": "디지털 노마드를 위한 최고의 도시를 발견하세요. 물가, 인터넷 속도, 안전 및 삶의 질을 기반으로 순위를 확인합니다.",
+    "Search": "검색", "Popular:": "인기 도시:", "Gigabit Internet": "기가비트 인터넷", "Available in 450+ cities": "450여 개 도시에서 이용 가능",
+    "Cities Indexed": "등록된 도시 수", "Nomad Reviews": "리뷰(건)", "Avg. Wi-Fi Speed": "평균 Wi-Fi 속도", "Avg. Living Cost": "평균 생활비",
+    "Featured Destinations": "추천 목적지", "Hand-picked locations with the best balance of cost and lifestyle.": "비용과 라이프스타일 밸런스가 뛰어난 엄선된 도시별 정보.",
+    "View all cities": "모든 도시 보기", "Lisbon, Portugal": "포르투갈, 리스본", "Coastal City • Tech Hub": "해안 도시 • 테크 허브",
+    "per month": "월 기준", "High": "높음", "Bali, Indonesia": "인도네시아, 발리", "Island • Coworking Paradise": "휴양지 • 코워킹 천국",
+    "Chiang Mai, Thailand": "태국, 치앙마이", "Mountainous • Low Cost": "산악 지대 • 저렴한 물가", "Very Safe": "매우 안전함",
+    "Ready to find your next home?": "다음 도시를 찾을 준비가 되셨나요?", "Join 50,000+ digital nomads and get access to exclusive city reports, community forums, and remote job listings.": "5만 명 이상의 노마드 커뮤니티에 참여하고 리포트와 채용 정보를 확인하세요.",
+    "Join the Community": "커뮤니티 가입", "Browse All Cities": "모든 도시 살펴보기", "Product": "서비스", "Nomad Score": "노마드 스코어",
+    "API": "API", "Resources": "리소스", "Blog": "블로그", "Remote Jobs": "원격 채용", "Guides": "도시 가이드", "Company": "회사",
+    "About": "소개", "Careers": "채용 정보", "Privacy": "개인정보 보호", "Terms": "이용 약관",
+    "NomadBudget": "노마드예산", "Destinations": "목적지", "Compare": "비교", "Save Plan": "계획 저장", "Bali Monthly Cost": "발리 예상 생활비",
+    "Plan your digital nomad lifestyle in Bali. Adjust the sliders below to get a personalized estimate of your monthly expenses.": "자신의 라이프스타일에 맞게 슬라이더를 조정하여 예상 월별 지출액을 확인하세요.",
+    "Indonesia": "인도네시아", "Estimated Monthly Total": "예상 월별 총 예산", "/ month": "/ 월", "Rent & Accommodation": "임대 및 숙박",
+    "Accommodation Type": "숙소 유형", "Shared Villa": "공유 빌라/게스트하우스", "Private Studio": "프라이빗 스튜디오 (원룸)", "Luxury Hotel": "럭셔리 호텔",
+    "Monthly Rent Budget": "월간 렌트 예산", "Food & Dining": "식사 및 다이닝", 
+    "Avg. meal price": "평균 식비 (1끼)", "Coffee/Drinks": "커피/음료비", "Monthly Food Total": "월 식사 비용",
+    "Transportation": "교통 수단", "Scooter Rental": "스쿠터 렌탈/대여", "Workspace": "업무 공간",
+    "Unlimited Coworking Pass ($180)": "무제한 코워킹 패스 ($180)", "10-Day Pass ($90)": "10일권 패스 ($90)", "Home Office Only ($0)": "재택 근무 전용 ($0)", "Cafe Hopping ($150)": "카페 호핑 ($150)", 
+    "Popular hubs: Outpost, Tropical Nomad, BWork.": "인기 코워킹 스페이스: 아웃포스트, 뷰워크 등.", "Expense Breakdown": "예산 상세 내역", " Rent": " 숙소",
+    " Food": " 식비", " Transport": " 교통", " Others": " 기타", "Compare with City": "다른 도시와 비교해보기", "Chiang Mai Estimate": "타 도시 예상 비용",
+    "Share this Budget": "예산 정보 공유하기", "Lifestyle & Activities": "라이프스타일 및 엑티비티",
+    "Surfing": "서핑 등 액티비티", "Rental + Lessons": "장비 대여 + 강습", "Yoga Pass": "요가/피트니스 통행권", "Unlimited Monthly": "한 달 무제한 이용권",
+    "Nightlife": "나이트라이프/클럽", "Beach Clubs & Bars": "비치클럽 & 바", "Add Activity": "직접 추가하기", "Bali Guide": "도시 핵심 가이드",
+    "Internet Speed": "평균 와이파이 속도", "Avg. 45Mbps fiber": "약 45Mbps에서 100Mbps", "Best Time to Visit": "방문 권장 시기", "May - September": "건기 시즌 분기",
+    "Safety Rating": "안전 지수", "High (Expat friendly)": "안전 (외국인 커뮤니티 활성화)", "Read full destination guide ": "더 자세한 정보 알아보기(링크) ",
+    "Helping digital nomads plan their next adventure with real-time cost of living data and budgeting tools.": "정확하고 리얼한 물가 비용 도구를 활용해 다음 여행의 걱정 없이 떠나세요.",
+    "Platform": "플랫폼", "Calculators": "비용 계산기", "Comparison": "생활비 비교", "Nomad List": "노마드 랭킹", "Visa Guide": "비자 및 체류 정보",
+    "Travel Insurance": "유학생/여행자 보험", "Connect": "소통 채널", "Privacy Policy": "개인정보 보호", "Terms of Service": "이용 약관",
+    "Lisbon Monthly Cost": "리스본 예상 생활비", "Chiang Mai Monthly Cost": "치앙마이 예상 생활비",
+    "Portugal": "포르투갈", "Thailand": "태국"
+};
+
+function applyTranslations(node) {
+    if (node.nodeType === 3) {
+        let text = node.nodeValue.trim();
+        // Exact match
+        if (dict[text]) {
+            node.nodeValue = node.nodeValue.replace(text, dict[text]);
+        } else {
+            // Check substrings for multi-part words
+            for(let key in dict) {
+                if (text === key) {
+                    node.nodeValue = node.nodeValue.replace(key, dict[key]);
+                }
+            }
+            if (text.includes("Work from ")) node.nodeValue = node.nodeValue.replace("Work from ", "자유롭게 거주하며 ");
+            if (text.includes("anywhere.")) node.nodeValue = node.nodeValue.replace("anywhere.", "어디서든 일하세요.");
+        }
+    } else if (node.nodeType === 1) {
+        if (node.tagName === 'INPUT' && node.placeholder && dict[node.placeholder]) {
+            node.placeholder = dict[node.placeholder];
+        }
+        for (let child of node.childNodes) {
+            applyTranslations(child);
+        }
+    }
+}
+
+function initLang() {
+    const isKo = localStorage.getItem('lang') === 'ko';
+    document.documentElement.lang = isKo ? 'ko' : 'en';
+    const l1 = document.getElementById('lang-label');
+    if(l1) l1.textContent = isKo ? 'EN' : 'KO';
+    
+    // special handling for multiple nav
+    const ls = document.querySelectorAll('#lang-label');
+    ls.forEach(l => l.textContent = isKo ? 'EN' : 'KO');
+
+    if(isKo) {
+        applyTranslations(document.body);
+    }
+}
+
+window.toggleLang = function() {
+    const cur = localStorage.getItem('lang');
+    localStorage.setItem('lang', cur === 'ko' ? 'en' : 'ko');
+    location.reload();
+}
+
+// Call on ready not immediate to avoid parse blocking and missing elements
+window.addEventListener('DOMContentLoaded', initLang);
+</script>
+
+</body></html>
